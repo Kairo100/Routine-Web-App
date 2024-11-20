@@ -1,0 +1,115 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Weekly Overview{% endblock %}
+
+{% block content %}
+<div class="d-flex">
+    {% include 'leftside.html' %}
+    
+    <div class="col-md-9 p-4" id="main-content">
+        <h2 class="text-purple">Weekly Overview</h2>
+
+        <!-- Weekly Calendar with Task Counts -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5>Week Calendar</h5>
+                <div class="d-flex justify-content-around">
+                    {% for week in weekly_overview_data %}
+                    <div class="text-center">
+                        <strong>{{ week.week_start_date|date:"D, M d" }}</strong>
+                        <p>{{ week.tasks_completed }} / {{ week.tasks_total }} tasks</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Summary -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5>Task Summary</h5>
+                <ul class="list-group">
+                    {% for week in weekly_overview_data %}
+                    <li class="list-group-item">
+                        {{ week.week_start_date|date:"l, M d" }}: 
+                        {{ week.tasks_completed }} / {{ week.tasks_total }} tasks completed 
+                        ({{ week.completion_percentage }}%)
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Habit Tracker Snapshot -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5>Habit Tracker Snapshot</h5>
+                <ul class="list-group">
+                    {% for week in weekly_overview_data %}
+                    <li class="list-group-item">
+                        {{ week.week_start_date|date:"l, M d" }}: 
+                        {{ week.habits_completed }} / {{ week.habits_total }} habits completed 
+                        ({{ week.habit_percentage }}%)
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Chart.js Graph (Task Completion and Habit Tracker) -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>Performance Graph</h5>
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Prepare data for chart.js
+    const labels = [{% for week in weekly_overview_data %}"{{ week.week_start_date|date:'M d' }}",{% endfor %}];
+    const taskCompletionData = [{% for week in weekly_overview_data %}{{ week.completion_percentage }},{% endfor %}];
+    const habitCompletionData = [{% for week in weekly_overview_data %}{{ week.habit_percentage }},{% endfor %}];
+
+    // Get the canvas context and create the chart
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Task Completion (%)',
+                data: taskCompletionData,
+                borderColor: '#6f42c1', // Purple for task completion
+                fill: false
+            }, {
+                label: 'Habit Completion (%)',
+                data: habitCompletionData,
+                borderColor: '#28a745', // Green for habit completion
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.raw + '%'; // Add percentage sign
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Daily Routine App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/dist/boxicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+</head>
+<body class="light-mode">
+
+    <!-- Toggle Button for Dark/Light Mode -->
+
+    <!-- <div class="toggle-mode">
+        <button class="toggle-btn" id="themeToggle"><i class="bx bx-sun"></i></button>
+    </div> -->
+    <!-- Header Section -->
+    <div class="header-container bg-purple">
+        <div>
+            <h3 class="text-light">Daily Routine App</h3>
+        </div>
+        <div class="authentication-links">
+            {% if not user.is_authenticated %}
+                <!-- Authentication Links for Unauthenticated Users -->
+                <a href="{% url 'login' %}" class="btn btn-sm btn-light text-dark mx-1">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-sm btn-outline-secondary mx-1">Sign Up</a>
+            {% else %}
+                <!-- Authentication Links for Logged-In Users -->
+                <a href="{% url 'dashboard' %}" class="btn btn-sm btn-light text-dark mx-1">Dashboard</a>
+                <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-secondary mx-1">Logout</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container py-3">
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle Dark/Light Mode functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            const themeToggle = document.getElementById("themeToggle");
+            const body = document.body;
+
+            // Retrieve saved theme from localStorage
+            const savedTheme = localStorage.getItem("theme") || "light-mode";
+            body.classList.add(savedTheme);
+
+            // Update the toggle icon based on the saved theme
+            const toggleIcon = themeToggle.querySelector("i");
+            if (savedTheme === "dark-mode") {
+                toggleIcon.classList.replace("bx-sun", "bx-moon");
+            }
+
+            // Add event listener for the toggle button
+            themeToggle.addEventListener("click", function() {
+                if (body.classList.contains("dark-mode")) {
+                    body.classList.remove("dark-mode");
+                    body.classList.add("light-mode");
+                    localStorage.setItem("theme", "light-mode");
+                    toggleIcon.classList.replace("bx-moon", "bx-sun");
+                } else {
+                    body.classList.remove("light-mode");
+                    body.classList.add("dark-mode");
+                    localStorage.setItem("theme", "dark-mode");
+                    toggleIcon.classList.replace("bx-sun", "bx-moon");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Evening Routine{% endblock %}
+
+{% block content %}
+<div class="d-flex">
+    {% include 'leftside.html' %}
+
+    <div class="col-md-9 p-6 bg-light" id="main-content">
+        <h1 class="text-3xl font-semibold mb-6 text-dark">Evening Routine</h1>
+
+        <!-- Add Task Form -->
+        <div class="mb-5">
+            <form method="POST" class="bg-white shadow-lg rounded-lg p-5 border-top border-primary">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="mt-4 w-100 py-3 px-5 btn text-white bg-purple">
+                    Add Task
+                </button>
+            </form>
+        </div>
+
+        <!-- Task List in Bootstrap Table -->
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.time|default:'No Time Set' }}</td>
+                        <td>
+                            <input type="checkbox" 
+                                   {% if task.completed %}checked{% endif %}
+                                   class="form-check-input"
+                                   onclick="toggleCompletion({{ task.id }})" />
+                        </td>
+                        <td>
+                            <!-- Action Buttons -->
+                            <form action="{% url 'edit_evening_task' task.id %}" method="GET" style="display: inline;">
+                                <button type="submit" class="btn bg-purple btn-sm text-white mr-2r">Edit</button>
+                            </form>
+                            <form action="{% url 'delete_evening_task' task.id %}" method="POST" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" 
+                                        >Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

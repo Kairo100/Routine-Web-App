@@ -1,0 +1,224 @@
+
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Daily Routine App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/dist/boxicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Light and Dark Mode */
+        body.light-mode {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        body.dark-mode {
+            background-color: #343a40;
+            color: white;
+        }
+
+        /* Full screen loading spinner */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .hero-section {
+            background-image: url("{% static 'images/hero-background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+           
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-buttons a {
+            margin: 10px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .cta-buttons .btn-primary {
+            background-color: #6f42c1;  /* Purple primary color */
+            color: white;
+        }
+
+        .cta-buttons .btn-secondary {
+            background-color: #adb5bd;  /* Light gray */
+            color: #212529;
+        }
+
+        .features-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .features-section h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .feature-item i {
+            font-size: 3rem;
+            color: #6f42c1;  /* Purple icon */
+            margin-right: 20px;
+        }
+
+        .feature-item p {
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .toggle-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: #6f42c1;
+            cursor: pointer;
+        }
+
+        .toggle-btn i {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+    <!-- Loading Spinner -->
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Toggle Button for Dark/Light Mode -->
+    <div class="toggle-mode">
+        <button class="toggle-btn" id="themeToggle"><i class="bx bx-sun"></i></button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div>
+            <h1>Welcome to Daily Routine App</h1>
+            <p>Unlock your daily productivity with our app! Manage your daily routines, tasks, and notes in one place. Set reminders, track your progress, and stay organized to achieve your goals. Whether you're a student, professional, or simply looking to improve your daily habits, our app is designed to help you succeed.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                <a href="{% url 'signup' %}" class="btn btn-secondary">Sign Up</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container text-center">
+            <h2>Features</h2>
+            <div class="row">
+                <div class="col-md-4 feature-item">
+                    <i class="bx bx-task"></i>
+                    <p>Track your daily tasks and to-dos with ease. Stay organized and on top of your routine.</p>
+                </div>
+                <div class="col-md-4 feature-item">
+                    <i class="bx bx-alarm"></i>
+                    <p>Set reminders for your activities and never forget important tasks again.</p>
+                </div>
+                <div class="col-md-4 feature-item">
+                    <i class="bx bx-book"></i>
+                    <p>Keep a journal of your progress and reflect on your day with our built-in note-taking feature.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hide the loader after the page is fully loaded
+        window.onload = function() {
+            document.getElementById('loader').style.display = 'none';
+        };
+
+        // Toggle Dark/Light mode functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            const themeToggle = document.getElementById("themeToggle");
+            const body = document.body;
+
+            // Retrieve saved theme from localStorage
+            const savedTheme = localStorage.getItem("theme") || "light-mode";
+            body.classList.add(savedTheme);
+
+            // Update the toggle icon based on the saved theme
+            const toggleIcon = themeToggle.querySelector("i");
+            if (savedTheme === "dark-mode") {
+                toggleIcon.classList.replace("bx-sun", "bx-moon");
+            }
+
+            // Add event listener for the toggle button
+            themeToggle.addEventListener("click", function() {
+                if (body.classList.contains("dark-mode")) {
+                    body.classList.remove("dark-mode");
+                    body.classList.add("light-mode");
+                    localStorage.setItem("theme", "light-mode");
+                    toggleIcon.classList.replace("bx-moon", "bx-sun");
+                } else {
+                    body.classList.remove("light-mode");
+                    body.classList.add("dark-mode");
+                    localStorage.setItem("theme", "dark-mode");
+                    toggleIcon.classList.replace("bx-sun", "bx-moon");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

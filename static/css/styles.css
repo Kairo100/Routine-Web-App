@@ -1,0 +1,188 @@
+/* Colors */
+:root {
+    --purple: #6a1b9a;
+    --light-bg: #ffffff;
+    --light-text: #000000;
+    --dark-bg: #121212;
+    --dark-text: #ffffff;
+}
+
+/* Body Themes */
+body.light-mode {
+    background-color: var(--light-bg);
+    color: var(--light-text);
+}
+
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+/* Header and Footer */
+.bg-purple {
+    background-color: var(--purple) !important;
+}
+
+.text-purple {
+    color: var(--purple) !important;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* Make the sidebar fixed on the left */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;  /* Full height */
+    width: 250px;   /* Set the width of the sidebar */
+    padding-top: 100px;
+
+}
+
+/* Adjust the main content area to be to the right of the sidebar */
+
+
+/* Optional: Style the sidebar links */
+#sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#sidebar a:hover {
+    background-color: #9226d4ee;
+    border-radius: 4px;
+}
+
+
+
+
+        /* Light and Dark Mode */
+        body.light-mode {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        body.dark-mode {
+            background-color: #343a40;
+            color: white;
+        }
+
+       .header-container{
+        background-color: #6f42c1;
+       }
+        .authentication-links a {
+            color: #fff;
+            margin: 0 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .authentication-links a:hover {
+            background-color: #6f42c1;
+            border-radius: 5px;
+            padding: 12px 22px;
+        }
+
+        .toggle-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: #6f42c1;
+            cursor: pointer;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #6f42c1;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .header-container h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header-container .authentication-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-container .authentication-links a {
+            margin-left: 15px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            padding: 20px;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+        }
+        
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+        #performanceChart {
+            max-width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+        

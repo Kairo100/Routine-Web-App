@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+
+
+<div class="d-flex">
+
+    {% include 'leftside.html' %}
+<div class="col-md-9 p-4" id="main-content">
+<h2 class="text-purple">Notes</h2>
+
+<!-- Notes List -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h5>Your Notes</h5>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <strong>Meeting Notes:</strong> Discuss project timeline.
+                <small class="text-muted d-block">Saved on: Nov 18</small>
+            </li>
+            <li class="list-group-item">
+                <strong>Reminder:</strong> Buy groceries.
+                <small class="text-muted d-block">Saved on: Nov 17</small>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Add Note Button -->
+<button class="btn btn-purple">Add Note</button>
+
+</div>
+</div>
+{% endblock %}

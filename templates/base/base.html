@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Daily Routine App{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/dist/boxicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body class="light-mode">
+    {% include './header.html' %}
+
+    <main class="container py-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include './footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeToggle = document.getElementById("themeToggle");
+            const body = document.body;
+
+            // Retrieve saved theme from localStorage
+            const savedTheme = localStorage.getItem("theme") || "light-mode";
+            body.classList.add(savedTheme);
+
+            // Update the toggle icon based on the saved theme
+            const toggleIcon = themeToggle;
+            if (savedTheme === "dark-mode") {
+                toggleIcon.classList.replace("bx-sun", "bx-moon");
+            }
+
+            // Add event listener for the toggle button
+            themeToggle.addEventListener("click", function () {
+                if (body.classList.contains("dark-mode")) {
+                    body.classList.remove("dark-mode");
+                    body.classList.add("light-mode");
+                    localStorage.setItem("theme", "light-mode");
+                    toggleIcon.classList.replace("bx-moon", "bx-sun");
+                } else {
+                    body.classList.remove("light-mode");
+                    body.classList.add("dark-mode");
+                    localStorage.setItem("theme", "dark-mode");
+                    toggleIcon.classList.replace("bx-sun", "bx-moon");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

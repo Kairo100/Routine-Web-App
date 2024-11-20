@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<div class="d-flex">
+
+    {% include 'leftside.html' %}
+
+    <div class="col-md-9 p-6 bg-light" id="main-content">
+    <h2 class="mb-4">Edit Task: {{ task.name }}</h2>
+
+    <!-- Edit Task Form -->
+    <form method="POST" class="bg-white shadow-lg rounded-lg p-5 border-top border-primary">
+        {% csrf_token %}
+        
+        <!-- Task Form Fields -->
+        <div class="mb-3">
+            <label for="id_name" class="form-label">Task Name</label>
+            {{ form.name|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_time" class="form-label">Time</label>
+            {{ form.time|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_completed" class="form-label">Completed</label>
+            {{ form.completed|add_class:"form-check-input" }}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100 py-2">Save Changes</button>
+    </form>
+
+    <div class="mt-3">
+        <a href="{% url 'morning_routine' %}" class="btn btn-secondary">Back to Task List</a>
+    </div>
+</div>
+</div>
+{% endblock %}

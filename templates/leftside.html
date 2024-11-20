@@ -1,0 +1,32 @@
+
+
+{% block title %}Dashboard | Daily Routine App{% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="col-md-3 bg-purple text-white p-4" id="sidebar">
+    <h4 class="mb-4">Welcome, {{ user.username }}!</h4>
+    <ul class="list-unstyled">
+        <li><a href="{% url 'dashboard' %}" class="nav-link  {% if '/dashboard/' == request.path %} bg-light text-dark {% endif %}"> 🏠 Dashboard</a></li>
+        <li><a href="{% url 'morning_routine' %}" class="nav-link  {% if '/morning-routine' in request.path %} bg-light text-dark  {% endif %}">🌅 Morning Routine</a></li>
+        <li><a href="{% url 'daily_planner' %}" class="nav-link  {% if '/daily-planner' in request.path %} bg-light text-dark  {% endif %}">📝 Daily Planner</a></li>
+        <li><a href="{% url 'evening_routine' %}" class="nav-link  {% if '/evening-routine' in request.path %} bg-light text-dark  {% endif %}">🌙 Evening Routine</a></li>
+        <li><a href="{% url 'weekly_overview' %}" class="nav-link  {% if '/weekly-overview' in request.path %} bg-light text-dark  {% endif %}">📅 Weekly Overview</a></li>
+        <li><a href="{% url 'habit_tracker' %}" class="nav-link  {% if '/habit-tracker' in request.path %} bg-light text-dark  {% endif %}">📊 Habit Tracker</a></li>
+        <li><a href="{% url 'notes' %}" class="nav-link  {% if '/notes' in request.path %} bg-light text-dark  {% endif %}">📝 Notes</a></li>
+        <li><a href="{% url 'logout' %}" class="nav-link  {% if '/logout' in request.path %} bg-light text-dark  {% endif %}">🚪 Logout</a></li>
+    </ul>
+</div>
+
+
+{%endblock %}
+
+
+
+
+
+
+
